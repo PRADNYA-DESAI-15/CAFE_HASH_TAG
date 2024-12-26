@@ -40,14 +40,7 @@ alter table Final_Order add column Customer_ID int ;
 alter table final_order add column Customer_Name varchar(250);
 alter table final_order add column Customer_Surname varchar(250);
 
-INSERT INTO NewOrders (Order_ID, OrderDate, CustomerID, Product)
-SELECT Order_ID, OrderDate, CustomerID, Product
-FROM Orders
-WHERE (Order_ID, OrderDate) IN (
-    SELECT Order_ID, MAX(OrderDate)
-    FROM Orders
-    GROUP BY Order_ID
-);
+
 
 
 create table payment_details
