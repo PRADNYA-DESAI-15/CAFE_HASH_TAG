@@ -15,18 +15,15 @@ def update():
     m_name=box1.get()
     category=box2.get()
     m_price=box3.get()
-    print(gmail)
-    if( n_pass==c_pass):
-        cur = conn.cursor()
-        sql = "update sign_up set pass='"+n_pass+"' where gmail='"+ gmail +"' "
-        result = cur.execute(sql)
-        messagebox.showinfo("Success", "Data inserted successfully")
-        conn.commit()
-        cur.close()
 
-    else:
+    cur = conn.cursor()
+    sql = "insert into menu_details(menu_name,category,menu_price) values ('" + m_name + "','" + category + "','" + m_price + "' );"
+    result = cur.execute(sql)
+    messagebox.showinfo("Success", "Data inserted successfully")
+    conn.commit()
+    cur.close()
 
-        messagebox.showinfo("message","Check Passwords")
+
 
 def search():
     m_name=box1.get()

@@ -25,13 +25,30 @@ date1 nvarchar(20),
 time1 nvarchar(20)
 );
 
-create table order_details
-(
-customer_ID int(20) primary key,
-place nvarchar(20),
-Order1 nvarchar(200),
-total_payment nvarchar(20)
+
+create table Orders(
+	Order_ID int(20) primary key,
+    Price int(20)
 );
+alter table Orders add column Customer_ID int ;
+
+create table Final_Order(
+	Order_ID int primary key,
+    Price int 
+);
+alter table Final_Order add column Customer_ID int ;
+alter table final_order add column Customer_Name varchar(250);
+alter table final_order add column Customer_Surname varchar(250);
+
+INSERT INTO NewOrders (Order_ID, OrderDate, CustomerID, Product)
+SELECT Order_ID, OrderDate, CustomerID, Product
+FROM Orders
+WHERE (Order_ID, OrderDate) IN (
+    SELECT Order_ID, MAX(OrderDate)
+    FROM Orders
+    GROUP BY Order_ID
+);
+
 
 create table payment_details
 (
@@ -40,3 +57,4 @@ customer_name nvarchar(50),
 total_payment nvarchar(20),
 payment_method nvarchar(50)
 );
+

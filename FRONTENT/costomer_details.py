@@ -25,21 +25,29 @@ def save():
     gender=var.get()
     id_p=var1.get()
     id_n= box8.get()
+    time_1=box10.get()
+    date_1=box9.get()
     print(fname)
 
     cur = conn.cursor()
-    sql = "insert into customer_details(customer_ID,firstname,lastname,Contact,Address,ID_proof,ID_No,gender)" \
-          " values ('" + C_id + "','" + fname + "','" + lname + "','" + add + "','" + contact + "','" + gender + "','" + id_p + "','" + id_n + "' );"
-    result = cur.execute(sql)
+    sql = "insert into customer_details(customer_ID,firstname,lastname,Contact,Address,ID_proof,ID_No,gender,date1,time1) values ('" + C_id + "','" + fname + "','" + lname + "','" + add + "','" + contact + "','" + gender + "','" + id_p + "','" + id_n + "','"+ date_1 +"' ,'"+ time_1 +"' );"
+    result=cur.execute(sql)
     messagebox.showinfo("Success", "Data inserted successfully")
     conn.commit()
     cur.close()
 
 def Exit():
-    os.system("Home_Page.py")
+    os.system("home.py")
 
 
-
+def fetch_next_customer_id():
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT COALESCE(MAX(Customer_ID), 0) + 1 FROM customer_details")
+        return cursor.fetchone()[0]
+    except Exception as e:
+        print(f"Error: {e}")
+        return "Error"
 
 root=Tk()
 root.geometry("1366x768+0+0")
@@ -64,6 +72,9 @@ mainlabel1=Label(root,text="Customer_ID:", fg="white",bg="black",font=("Action M
 mainlabel1.place(x=400,y=200)
 box1=ttk.Entry(root,font=("Action Man",15))
 box1.place(x=400,y=230)
+box1.configure(state="normal")
+box1.insert(0, fetch_next_customer_id())
+box1.configure(state="readonly")
 
 
 mainlabel2=Label(root,text="First Name :", fg="white",bg="black",font=("Action Man",15))

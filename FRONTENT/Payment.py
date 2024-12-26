@@ -14,6 +14,7 @@ else:
 def Exit():
     os.system("Home_Page")
 
+
 def search():
     ID=box1.get()
     print(ID)
@@ -60,7 +61,6 @@ tree.heading("#3",text="Total Payment")
 
 tree.column("#4",width=150)
 tree.heading("#4",text="Payment_Method")
-
 tree.place(x=370,y=170)
 
 cur=conn.cursor(buffered=True)
@@ -80,6 +80,8 @@ mainlabel.place(x=750,y=120)
 
 box1=Entry(root ,font=("Action Man",15))
 box1.place(x=880,y=120)
+
+
 
 B1=Button(root,text=" SEARCH   ",fg="white",bg="black",font=("Action Man",12,"underline"))
 B1.place(x=1100,y=120)
